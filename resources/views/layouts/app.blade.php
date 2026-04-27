@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinjam Kelas</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="app">
+        @yield('content')
+
+        <div class="bottom-nav">
+            <a href="{{ url('/pinjam') }}" class="nav-link">
+                <div class="nav-item {{ Request::is('pinjam*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-building"></i><br>Pinjam
+                </div>
+            </a>
+            <a href="{{ url('/jadwal') }}" class="nav-link">
+                <div class="nav-item {{ Request::is('jadwal*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-calendar"></i><br>Jadwal
+                </div>
+            </a>
+            <a href="{{ url('/akun') }}" class="nav-link">
+                <div class="nav-item {{ Request::is('akun*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-user"></i><br>Akun
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

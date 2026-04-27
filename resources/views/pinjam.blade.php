@@ -1,0 +1,45 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="header">
+        <i class="fa-solid fa-building"></i>
+        <div class="title">
+            Aplikasi Pinjam Kelas <br>
+            <span>Universitas Negeri Malang</span>
+        </div>
+        <i class="fa-solid fa-circle-info"></i>
+    </div>
+
+    <div class="content">
+        <div class="section-title">
+            <h3>Ruang Kelas Tersedia</h3>
+            <button class="filter"><i class="fa-solid fa-filter"></i> Filter</button>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div>
+                    <h4>Ruang A20-115</h4>
+                    <p>Lantai 1</p>
+                </div>
+                <span class="badge full">Penuh</span>
+            </div>
+            <p class="capacity"><i class="fa-solid fa-users"></i> Kapasitas: 40 orang</p>
+            <button class="btn disabled">Tidak tersedia</button>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div>
+                    <h4>Ruang A20-203</h4>
+                    <p>Lantai 2</p>
+                </div>
+                <span class="badge available">Tersedia</span>
+            </div>
+            <p class="capacity"><i class="fa-solid fa-users"></i> Kapasitas: 35 orang</p>
+            <a href="{{ url('/pinjam/form') }}" class="btn primary">
+                Pinjam Ruangan
+            </a>
+        </div>
+    </div>
+@endsection
