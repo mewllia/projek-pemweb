@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () { return redirect('/pinjam'); }); // Redirect halaman awal ke pinjam
+Route::get('/', function () { return redirect('/pinjam'); });
 
 Route::get('/pinjam', function () {
     return view('pinjam');

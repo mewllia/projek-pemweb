@@ -2,12 +2,14 @@
 
 @section('content')
     <div class="header">
-        <i class="fa-solid fa-building"></i>
-        <div class="title">
-            Aplikasi Pinjam Kelas <br>
-            <span>Universitas Negeri Malang</span>
+        <div class="header-left">
+            <i class="fa-solid fa-building"></i>
+            <div class="title">
+                Aplikasi Pinjam Kelas <br>
+                <span style="font-size: 16px;">Universitas Negeri Malang</span>
         </div>
-        <i class="fa-solid fa-circle-info"></i>
+        </div>
+        <i class="fa-solid fa-magnifying-glass"></i>
     </div>
 
     <div class="content">

@@ -2,8 +2,10 @@
 
 @section('content')
     <div class="header">
-        <i class="fa-solid fa-calendar-check"></i>
-        <div class="title">Jadwal Penggunaan Ruang A20</div>
+        <div class="header-left">
+            <i class="fa-solid fa-calendar-check"></i>
+            <div class="title">Jadwal Penggunaan Ruang A20</div>
+        </div>
         <i class="fa-solid fa-magnifying-glass"></i>
     </div>
 
@@ -17,8 +19,8 @@
 
     <div class="content">
     <div class="floor-filter">
-        <button class="btn-floor active">Lantai 1</button>
-        <button class="btn-floor">Lantai 2</button>
+        <button class="btn-floor active">1</button>
+        <button class="btn-floor">2</button>
     </div>
 
     <div class="card card-ruang">
