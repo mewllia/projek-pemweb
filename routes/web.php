@@ -8,6 +8,10 @@ Route::get('/pinjam', function () {
     return view('pinjam');
 });
 
+Route::get('/pinjam/tambah', function() {
+    return view('tambah_kelas');
+});
+
 Route::get('/jadwal', function () {
     return view('jadwal');
 });

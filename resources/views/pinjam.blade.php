@@ -15,7 +15,14 @@
     <div class="content">
         <div class="section-title">
             <h3>Ruang Kelas Tersedia</h3>
+            <div>
+                <a href="{{ url('/pinjam/tambah') }}" class="nav-link">
+                    <div class="nav-item {{ Request::is('pinjam*') ? 'active' : '' }}">
+                        <i class="fa-solid fa-plus">Tambah kelas</i>
+                    </div>
+                </a>
             <button class="filter"><i class="fa-solid fa-filter"></i> Filter</button>
+            </div>
         </div>
 
         <div class="card">

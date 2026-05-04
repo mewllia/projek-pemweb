@@ -60,6 +60,10 @@ body {
     border-radius: 10px;
 }
 
+.filter:hover {
+    background: #c5c5c5;
+}
+
 .card {
     flex: 1 1 300px;
     background: white;
