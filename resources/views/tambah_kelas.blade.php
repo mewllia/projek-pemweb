@@ -90,10 +90,11 @@
 
 <div class="container">
     <h2>Tambah Ruangan Baru</h2>
-    <form action="/ruangan/store" method="POST">
+    <form action="{{ route('ruangan.store') }}" method="POST">
+        @csrf
         <div class="form-group">
-            <label for="nama_ruangan">Nama Ruangan</label>
-            <input type="text" id="nama_ruangan" name="nama_ruangan" placeholder="Contoh: Lab Komputer 1" required>
+            <label for="nama">Nama Ruangan</label>
+            <input type="text" id="nama" name="nama" placeholder="Contoh: Lab Komputer 1" required>
         </div>
 
         <div class="row">
@@ -105,15 +106,6 @@
                 <label for="kapasitas">Kapasitas (Orang)</label>
                 <input type="number" id="kapasitas" name="kapasitas" placeholder="0" required>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label for="status_ruangan">Status Awal</label>
-            <select id="status_ruangan" name="status_ruangan">
-                <option value="tersedia">Tersedia</option>
-                <option value="perbaikan">Dalam Perbaikan</option>
-                <option value="dipakai">Sedang Dipakai</option>
-            </select>
         </div>
 
         <div class="form-group">

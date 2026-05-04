@@ -16,7 +16,7 @@
         <div class="section-title">
             <h3>Ruang Kelas Tersedia</h3>
             <div>
-                <a href="{{ url('/pinjam/tambah') }}" class="nav-link">
+                <a href="{{ route('ruangan.create') }}" class="nav-link">
                     <div class="nav-item {{ Request::is('pinjam*') ? 'active' : '' }}">
                         <i class="fa-solid fa-plus">Tambah kelas</i>
                     </div>
