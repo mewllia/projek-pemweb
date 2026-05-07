@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: Geneva, Tahoma, Verdana, sans-serif;
     background: #ddd;
     display: flex;
 }
@@ -40,6 +40,7 @@ body {
 }
 
 .content {
+    font-family: 'Segoe UI';
     display: flex;
     flex-wrap: wrap; 
     gap: 20px; 
@@ -53,15 +54,27 @@ body {
     align-items: center;
 }
 
+.section-right {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .filter {
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+    align-items: center;
     border: none;
     background: white;
     padding: 5px 10px;
     border-radius: 10px;
+    transition: ease 0.2 all;
 }
 
 .filter:hover {
-    background: #c5c5c5;
+    background: #99ddfe;
 }
 
 .card {

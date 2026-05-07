@@ -2,22 +2,21 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RuanganController;
+use App\Http\Controllers\PeminjamanController;
 
-Route::get('/', function () { return redirect('/pinjam'); });
-
-Route::get('/pinjam', function () {
-    return view('pinjam');
+Route::get('/', function () {
+    return redirect('/home');
 });
-
-Route::get('/pinjam', [RuanganController::class, 'index'])->name('pinjam.index');
-Route::get('/pinjam/tambah', [RuanganController::class, 'create'])->name('ruangan.create');;
-Route::post('/pinjam/simpan', [RuanganController::class, 'store'])->name('ruangan.store');
-// Jika kamu mengarahkannya ke halaman daftar ruangan/pinjaman
 
 Route::get('/jadwal', function () {
     return view('jadwal');
 });
 
-Route::get('/pinjam/form', function () {
-    return view('form_pinjam');
-});
+Route::get('/home', [RuanganController::class, 'index'])->name('ruangan.index');
+
+Route::get('/ruangan/tambah', [RuanganController::class, 'create'])->name('ruangan.create');
+Route::post('/ruangan/simpan', [RuanganController::class, 'store'])->name('ruangan.store');
+Route::get('/ruangan/pinjam/{id}', [RuanganController::class, 'pinjamForm'])->name('pinjam.form');
+
+Route::get('/pinjam/form/{id}', [PeminjamanController::class, 'create'])->name('pinjam.create');
+Route::post('/pinjam/simpan', [PeminjamanController::class, 'store'])->name('pinjam.store');

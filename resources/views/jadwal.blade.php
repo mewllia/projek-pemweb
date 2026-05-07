@@ -3,7 +3,7 @@
 @section('content')
     <div class="header">
         <div class="header-left">
-            <i class="fa-solid fa-calendar-check"></i>
+            <i class="fa-solid fa-calendar-check" style="font-size: 30px;"></i>
             <div class="title">Jadwal Penggunaan Ruang A20</div>
         </div>
         <i class="fa-solid fa-magnifying-glass"></i>

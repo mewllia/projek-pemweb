@@ -94,13 +94,19 @@
         @csrf
         <div class="form-group">
             <label for="nama">Nama Ruangan</label>
-            <input type="text" id="nama" name="nama" placeholder="Contoh: Lab Komputer 1" required>
+            <input type="text" id="nama" name="nama" placeholder="Lab Komputer 1" required>
         </div>
 
         <div class="row">
             <div class="form-group">
                 <label for="gedung">Gedung</label>
-                <input type="text" id="gedung" name="gedung" placeholder="Contoh: Gedung B1" required>
+                <select id="gedung" name="gedung" required>
+                    <option value="" disabled selected>Pilih Gedung</option>
+                    <option value="B11">B11</option>
+                    <option value="B12">B12</option>
+                    <option value="A19">A19</option>
+                    <option value="A20">A20</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="kapasitas">Kapasitas (Orang)</label>
@@ -110,11 +116,11 @@
 
         <div class="form-group">
             <label for="fasilitas">Fasilitas</label>
-            <textarea id="fasilitas" name="fasilitas" placeholder="AC, Proyektor, Papan Tulis..."></textarea>
+            <textarea id="fasilitas" name="fasilitas" placeholder="AC, Proyektor, Papan Tulis, etc."></textarea>
         </div>
 
         <button type="submit" class="btn-save">Simpan Ruangan</button>
-        <a href="/pinjam" class="btn-back">← Kembali ke Daftar Ruangan</a>
+        <a href="/home" class="btn-back">← Kembali ke Daftar Ruangan</a>
     </form>
 </div>
 
