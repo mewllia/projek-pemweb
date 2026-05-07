@@ -26,11 +26,11 @@
                 <div style="display: flex; gap: 10px; margin-bottom: 15px;">
                     <div style="flex: 1;">
                         <label style="display:block; font-size: 12px; color: #666; margin-bottom: 5px;">Jam Mulai (1-12)</label>
-                        <input type="number" name="jam_mulai" min="1" max="12" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box;">
+                        <input type="number" id="jam_mulai" name="jam_mulai" min="1" max="12" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box;">
                     </div>
                     <div style="flex: 1;">
                         <label style="display:block; font-size: 12px; color: #666; margin-bottom: 5px;">Jam Selesai (1-12)</label>
-                        <input type="number" name="jam_selesai" min="1" max="12" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box;">
+                        <input type="number" id="jam_selesai" name="jam_selesai" min="1" max="12" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box;">
                     </div>
                 </div>
 
@@ -39,8 +39,26 @@
                     <textarea name="keterangan" rows="3" placeholder="Matakuliah Pemrograman Web" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box;"></textarea>
                 </div>
 
-                <button type="submit" class="btn primary">Kirim Pengajuan</button>
+                <button type="submit" onclick="return validateForm()" class="btn primary">Kirim Pengajuan</button>
             </form>
         </div>
     </div>
 @endsection
+
+<script>
+    function validateForm() {
+        const mulai = parseInt(document.getElementById('jam_mulai').value);
+        const selesai = parseInt(document.getElementById('jam_selesai').value);
+    
+        if (selesai <= mulai) {
+            alert("Jam selesai harus lebih besar dari jam mulai.");
+            return false;
+        }
+    
+        if (mulai < 1 || selesai > 12) {
+            alert("Input tidak valid! Gunakan jam antara 1 sampai 12.");
+            return false;
+        }
+        return true;
+    }
+</script>

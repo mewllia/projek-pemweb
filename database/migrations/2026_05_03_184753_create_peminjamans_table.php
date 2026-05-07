@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('peminjamans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('ruangan_id')->constrained()->onDelete('cascade');
-            $table->enum('hari', ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']);
-            $table->integer('jam_mulai');
-            $table->integer('jam_selesai');
+            $table->string('hari');
+            $table->integer('jam'); // Menyimpan angka jam (misal: 1, 2, atau 3)
             $table->string('kegiatan');
             $table->timestamps();
         });

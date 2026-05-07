@@ -44,26 +44,42 @@
                         <span style="font-size: 20px; font-weight: bold;">{{ $ruangan->nama }}</span><br>
                         <span style="font-weight: bold;">{{ $ruangan->gedung }}</span>
                     </div>
-
+            
+                    {{-- Status sekarang selalu tersedia selama total jam belum penuh 12 jam --}}
                     @if($ruangan->is_available)
                         <span class="badge available">Tersedia</span>
                     @else
                         <span class="badge full">Penuh</span>
                     @endif
                 </div>
-
+            
                 <p class="capacity">
                     <i class="fa-solid fa-tv"></i> Fasilitas: {{ $ruangan->fasilitas }}
                 </p>
                 <p class="capacity">
                     <i class="fa-solid fa-users"></i> Kapasitas: {{ $ruangan->kapasitas }} orang
                 </p>
-
+            
+                {{-- BAGIAN BARU: Menampilkan Jam yang Sudah Terisi --}}
+                <div style="margin: 10px 0; padding: 8px; background: #f8fafc; border-radius: 8px; font-size: 13px;">
+                    <strong style="color: #64748b; display: block; margin-bottom: 4px;">Jadwal {{ $hariDipilih }}:</strong>
+                    @forelse($ruangan->peminjamans as $p)
+                        <div style="color: #ef4444; margin-bottom: 2px;">
+                            <i class="fa-solid fa-clock"></i> Jam {{ $p->jam_mulai }} - {{ $p->jam_selesai }} (Terisi)
+                        </div>
+                    @empty
+                        <div style="color: #10b981;">
+                            <i class="fa-solid fa-calendar-check"></i> Belum ada peminjaman
+                        </div>
+                    @endforelse
+                </div>
+            
                 @if($ruangan->is_available)
                     <a href="{{ route('pinjam.create', ['id' => $ruangan->id, 'hari' => $hariDipilih]) }}" class="btn primary">
-                        Pinjam Ruangan </a>
+                        Pinjam Ruangan 
+                    </a>
                 @else
-                    <button class="btn disabled" disabled>Sudah Terisi</button>
+                    <button class="btn disabled" disabled>Sudah Penuh</button>
                 @endif
             </div>
 
