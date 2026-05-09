@@ -12,14 +12,14 @@
         @yield('content')
 
         <div class="bottom-nav">
-            <a href="{{ url('/pinjam') }}" class="nav-link">
-                <div class="nav-item {{ Request::is('pinjam*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-building"></i><br>Pinjam
+            <a href="{{ url('/home') }}" class="nav-link">
+                <div class="nav-item {{ Request::is('home*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-building"></i><br>Ruangan
                 </div>
             </a>
             <a href="{{ url('/jadwal') }}" class="nav-link">
                 <div class="nav-item {{ Request::is('jadwal*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-calendar"></i><br>Jadwal
+                    <i class="fa-solid fa-calendar"></i><br>Jadwal Saya
                 </div>
             </a>
             <a href="{{ url('/akun') }}" class="nav-link">

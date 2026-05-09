@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: Geneva, Tahoma, Verdana, sans-serif;
     background: #ddd;
     display: flex;
 }
@@ -21,11 +21,18 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    min-height: 3rem;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
 }
 
 .title {
-    text-align: center;
-    font-size: 13px;
+    margin-left: 1rem;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .title span {
@@ -33,6 +40,7 @@ body {
 }
 
 .content {
+    font-family: 'Segoe UI';
     display: flex;
     flex-wrap: wrap; 
     gap: 20px; 
@@ -46,11 +54,27 @@ body {
     align-items: center;
 }
 
+.section-right {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .filter {
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+    align-items: center;
     border: none;
     background: white;
     padding: 5px 10px;
     border-radius: 10px;
+    transition: ease 0.2 all;
+}
+
+.filter:hover {
+    background: #99ddfe;
 }
 
 .card {
@@ -119,11 +143,11 @@ body {
 .bottom-nav {
     position: fixed;
     bottom: 0;
-    left: 0; 
     width: 100%; 
     background: #fff;
     display: flex;
     justify-content: space-around;
+    margin: 0px;
     padding: 8px 0; 
     box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
     border-radius: 0; 
@@ -161,6 +185,7 @@ body {
 
 .card-ruang {
     display: flex;
+    align-self: flex-start;
     flex-direction: column;
     padding: 0 !important; 
     overflow: hidden;
@@ -285,6 +310,7 @@ body {
 
 .floor-filter {
     display: flex;
+    flex-direction: column;
     gap: 10px;
     margin-bottom: 15px;
     padding: 0 5px;
@@ -300,6 +326,8 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
+    min-height: 5rem;
+    min-width: 5rem;
 }
 
 .btn-floor.active, .btn-floor:hover {
