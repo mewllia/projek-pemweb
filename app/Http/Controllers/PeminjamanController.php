@@ -18,39 +18,40 @@ class PeminjamanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'jam_mulai'   => 'required|integer|min:1|max:12',
-            'jam_selesai' => 'required|integer|min:1|max:12|gt:jam_mulai',
-            'peminjam'    => 'required|string|max:255',
-            'keterangan'  => 'required|string|max:255',
-        ], [
-            'jam_mulai.max'   => 'Jam mulai maksimal jam 12.',
-            'jam_selesai.gt'  => 'Jam selesai harus lebih besar dari jam mulai.',
-            'jam_selesai.max' => 'Jam selesai maksimal jam 12.',
+            'ruangan_id' => 'required',
+            'hari'       => 'required',
+            'jam_mulai'  => 'required|integer|min:1|max:12',
+            'durasi'     => 'required|integer|min:1|max:12',
+            'peminjam'   => 'required|string|max:255',
+            'keterangan' => 'required|string|max:255',
         ]);
 
-        $mulai = $request->jam_mulai;
-        $selesai = $request->jam_selesai;
-        $ruangan_id = $request->ruangan_id;
-        $hari = $request->hari;
-
-        $jamInput = range($mulai, $selesai); 
+        $mulai = (int) $request->jam_mulai;
+        $durasi = (int) $request->durasi;
         
-        $bentrok = Peminjaman::where('ruangan_id', $ruangan_id)
-        ->where('hari', $hari)->whereIn('jam', $jamInput)->exists();
-
-        if ($bentrok) {
-            return back()->with('error', 'Maaf, salah satu jam di rentang tersebut sudah terisi!');
+        $jamInput = [];
+        for ($i = 0; $i < $durasi; $i++) {
+            $jamInput[] = $mulai + $i;
         }
 
+        if (max($jamInput) > 12) {
+            return back()->with('error', 'Peminjaman melebihi batas jam 12!');
+        }
+
+        $bentrok = Peminjaman::where('ruangan_id', $request->ruangan_id)
+        ->where('hari', $request->hari)->whereIn('jam', $jamInput)->exists();
+        if ($bentrok) {
+            return back()->with('error', 'Salah satu jam sudah terisi!');
+        }
         foreach ($jamInput as $j) {
             Peminjaman::create([
-                'ruangan_id' => $ruangan_id,
-                'hari'       => $hari,
+                'ruangan_id' => $request->ruangan_id,
+                'hari'       => $request->hari,
                 'jam'        => $j,
                 'peminjam'   => $request->peminjam,
-                'keterangan' => $request->keterangan
+                'keterangan' => $request->keterangan,
             ]);
         }
-        return redirect()->route('ruangan.index')->with('success', 'Berhasil meminjam ruangan!');
+        return redirect()->route('ruangan.index', ['hari' => $request->hari])->with('success', 'Berhasil meminjam ruangan!');
     }
 }
