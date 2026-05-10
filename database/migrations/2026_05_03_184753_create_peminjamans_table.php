@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('ruangan_id')->constrained()->onDelete('cascade');
             $table->string('hari');
             $table->integer('jam');
-            $table->string('peminjam');
+            $table->string('jurusan');
             $table->string('keterangan');
             $table->timestamps();
         });

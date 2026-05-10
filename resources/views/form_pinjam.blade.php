@@ -20,9 +20,9 @@
 
                 <div style="margin-bottom: 15px;">
                     <label style="display:block; font-size: 12px; color: #666; margin-bottom: 5px;">Program Studi/Offering</label>
-                    <input type="text" name="peminjam" 
+                    <input type="text" name="jurusan" 
                            value="{{ Session::get('jurusan') }}" 
-                           disabled
+                           readonly
                            style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box; background: #f9f9f9;">
                 </div>
 
@@ -30,13 +30,13 @@
                     <div style="flex: 1;">
                         <label style="display:block; font-size: 12px; color: #666; margin-bottom: 5px;">Jam Mulai (Ke-)</label>
                         <input type="number" id="jam_mulai" name="jam_mulai" min="1" max="12" required 
-                               placeholder="1" oninput="updatePreview()"
+                               value="1" oninput="updatePreview()"
                                style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box;">
                     </div>
                     <div style="flex: 1;">
                         <label style="display:block; font-size: 12px; color: #666; margin-bottom: 5px;">Durasi (Jam)</label>
                         <input type="number" id="durasi" name="durasi" min="1" max="12" required 
-                               placeholder="2" oninput="updatePreview()"
+                               value="2" oninput="updatePreview()"
                                style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box;">
                     </div>
                 </div>
@@ -62,17 +62,18 @@
         const preview = document.getElementById('preview-jam');
 
         if (mulai && durasi) {
-            // Jika mulai jam 1 durasi 2 jam, berarti pinjam jam 1 & jam 2.
             const selesai = mulai + durasi - 1;
             
             if (selesai > 12) {
                 preview.style.color = "#dc2626";
-                preview.innerText = "⚠️ Durasi melebihi batas (Maks jam 12)";
-            } else {
+                preview.innerText = "Durasi melebihi batas (Maks jam 12)";
+            }
+            else {
                 preview.style.color = "#0ea5e9";
                 preview.innerText = `Pinjam dari jam ke-${mulai} sampai jam ke-${selesai}`;
             }
-        } else {
+        }
+        else {
             preview.innerText = "";
         }
     }
@@ -80,25 +81,20 @@
     function validateForm() {
         const mulai = parseInt(document.getElementById('jam_mulai').value);
         const durasi = parseInt(document.getElementById('durasi').value);
-        
-        // Hitung jam selesai secara virtual
         const selesai = mulai + durasi - 1;
 
         if (mulai < 1 || mulai > 12) {
             alert("Jam mulai harus antara 1-12");
             return false;
         }
-
         if (durasi < 1) {
             alert("Durasi minimal 1 jam");
             return false;
         }
-
         if (selesai > 12) {
             alert("Peminjaman melebihi batas operasional (Jam 12). Kurangi durasi atau mulai lebih awal.");
             return false;
         }
-
         return true;
     }
 </script>
