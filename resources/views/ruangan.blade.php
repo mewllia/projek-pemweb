@@ -26,14 +26,16 @@
                     </a>
                 @endforeach
             </div>
+
             <div class="section-right">
-                <a href="{{ route('ruangan.create') }}" class="nav-link">
-                    <div class="filter nav-item {{ Request::is('pinjam*') ? 'active' : '' }}">
-                        <i class="fa-solid fa-plus"></i>
-                        <label>Tambah Kelas</label>
-                    </div>
-                </a>
-            {{-- <button class="filter"><i class="fa-solid fa-filter"></i>Filter</button> --}}
+                @if(Session::get('role') == 'admin')
+                    <a href="{{ route('ruangan.create') }}" class="nav-link">
+                        <div class="filter nav-item {{ Request::is('pinjam*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-plus"></i>
+                            <label>Tambah Kelas</label>
+                        </div>
+                    </a>
+                @endif
             </div>
         </div>
         
@@ -82,9 +84,12 @@
                 <i class="fa-solid fa-box-open" style="font-size: 50px; color: #cbd5e1; margin-bottom: 15px;"></i>
                 <h3 style="color: #64748b;">Tidak ada kelas</h3>
                 <p style="color: #94a3b8;">Belum ada ruangan yang ditambahkan ke database.</p>
-                <a href="{{ route('ruangan.create') }}" style="color: #0ea5e9; text-decoration: none; font-weight: 600;">
-                    + Tambah Ruangan Sekarang
-                </a>
+
+                @if(Session::get('role') == 'admin')
+                    <a href="{{ route('ruangan.create') }}" style="color: #0ea5e9; text-decoration: none; font-weight: 600;">
+                        + Tambah Ruangan Sekarang
+                    </a>
+                @endif
             </div>
         @endforelse
     </div>

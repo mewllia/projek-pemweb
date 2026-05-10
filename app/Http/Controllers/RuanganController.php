@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\Ruangan;
 
@@ -18,10 +19,14 @@ class RuanganController extends Controller
             return $ruangan;
         });
 
-        return view('home', compact('semua_ruangan', 'hariDipilih'));
+        return view('ruangan', compact('semua_ruangan', 'hariDipilih'));
     }
     public function create()
     {
+        if (Session::get('role') !== 'admin') {
+            return redirect('/ruangan')->with('error', 'Hanya Admin yang boleh menambah ruangan!');
+        }
+
         return view('tambah_ruangan');
     }
     public function store(Request $request)
