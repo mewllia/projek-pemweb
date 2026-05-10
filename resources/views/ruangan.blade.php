@@ -3,13 +3,12 @@
 @section('content')
     <div class="header">
         <div class="header-left">
-            <i class="fa-solid fa-graduation-cap" style="font-size: 30px;"></i>
+            {{-- <i class="fa-solid fa-graduation-cap" style="font-size: 30px;"></i> --}}
             <div class="title">
-                APLIKASI PINJAM KELAS<br>
-                <span style="font-size: 16px;">UNIVERSITAS NEGERI MALANG</span>
+                Aplikasi Pinjam Kelas<br>
+                {{-- <span style="font-size: 16px;">UNIVERSITAS NEGERI MALANG</span> --}}
+            </div>
         </div>
-        </div>
-        <i class="fa-solid fa-magnifying-glass"></i>
     </div>
     
     <div class="content">
@@ -21,13 +20,21 @@
                        style="padding: 10px 20px; border-radius: 20px; text-decoration: none; 
                               background: {{ $hariDipilih == $hari ? '#6c8dc7' : '#fff' }}; 
                               color: {{ $hariDipilih == $hari ? '#fff' : '#64748b' }};
-                              border: 1px solid #e2e8f0; white-space: nowrap;">
+                              border: 2px solid #e2e8f0; white-space: nowrap;">
                         {{ $hari }}
                     </a>
                 @endforeach
             </div>
 
             <div class="section-right">
+                <form action="{{ route('ruangan.index') }}" method="GET" style="position: relative; display: flex; align-items: center;">
+                    <input type="hidden" name="hari" value="{{ $hariDipilih }}">
+                    <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 15px; color: #94a3b8;"></i>
+                    <input type="text" name="search" id="search" value="{{ request('search') }}" 
+                    placeholder="Search" >
+                    <button type="submit" style="display: none;">Cari</button>
+                </form>
+
                 @if(Session::get('role') == 'admin')
                     <a href="{{ route('ruangan.create') }}" class="nav-link">
                         <div class="filter nav-item {{ Request::is('pinjam*') ? 'active' : '' }}">
@@ -47,7 +54,6 @@
                         <span style="font-weight: bold;">{{ $ruangan->gedung }}</span>
                     </div>
             
-                    {{-- Status sekarang selalu tersedia selama total jam belum penuh 12 jam --}}
                     @if($ruangan->is_available)
                         <span class="badge available">Tersedia</span>
                     @else

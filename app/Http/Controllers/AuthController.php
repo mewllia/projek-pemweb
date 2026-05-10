@@ -25,6 +25,7 @@ class AuthController extends Controller
             Session::put('nama', $user->nama);
             Session::put('nim', $user->nim);
             Session::put('role', $user->role);
+            Session::put('jurusan', $user->jurusan);
             Session::put('login', true);
             return redirect('/ruangan')->with('success', 'Selamat datang, ' . $user->nama);
         }
