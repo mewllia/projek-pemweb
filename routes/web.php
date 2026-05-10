@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\PeminjamanController;
 
@@ -21,3 +22,9 @@ Route::get('/ruangan/{id}/tabel', [RuanganController::class, 'show'])->name('rua
 
 Route::get('/pinjam/form/{id}', [PeminjamanController::class, 'create'])->name('pinjam.create');
 Route::post('/pinjam/simpan', [PeminjamanController::class, 'store'])->name('pinjam.store');
+
+Route::get('/login', [AuthController::class, 'showLogin']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/register', [AuthController::class, 'showRegister']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::get('/logout', [AuthController::class, 'logout']);
