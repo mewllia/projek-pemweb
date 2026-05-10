@@ -4,25 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Ruangan;
-use Illuminate\Support\Facades\DB;
 
 class RuanganController extends Controller
 {
     public function index(Request $request)
     {
         $hariDipilih = $request->get('hari', 'Senin');
-        
-        // Kita gunakan eager loading agar performa cepat saat looping di Blade
         $semua_ruangan = Ruangan::with(['peminjamans' => function($q) use ($hariDipilih) {
             $q->where('hari', $hariDipilih);
         }])->get()->map(function($ruangan) use ($hariDipilih) {
-            
-            // Karena satu baris = satu jam, kita cukup count() saja
             $totalJamTerpakai = $ruangan->peminjamans->count();
-
-            // Ruangan penuh jika sudah ada 12 data jam (asumsi jam 1 sampai 12)
             $ruangan->is_available = $totalJamTerpakai < 12;
-            
             return $ruangan;
         });
 
@@ -34,7 +26,6 @@ class RuanganController extends Controller
     }
     public function store(Request $request)
     {
-        // Validasi sederhana agar database tidak error
         $request->validate([
             'nama' => 'required',
             'gedung' => 'required',
@@ -54,5 +45,18 @@ class RuanganController extends Controller
     {
         $ruangan = Ruangan::findOrFail($id);
         return view('form_pinjam', compact('ruangan'));
+    }
+    public function show($id, Request $request)
+    {
+        $ruangan = Ruangan::findOrFail($id);
+        $hariDipilih = $request->get('hari', 'Senin');
+        $peminjamans = \App\Models\Peminjaman::where('ruangan_id', $id)
+        ->where('hari', $hariDipilih)->get();
+        $jadwalTerisi = $peminjamans->keyBy('jam');
+        
+        $totalJamTerpakai = $peminjamans->count();
+        $ruangan->is_available = $totalJamTerpakai < 12;
+
+        return view('ruangan_tabel', compact('ruangan', 'hariDipilih', 'jadwalTerisi'));
     }
 }

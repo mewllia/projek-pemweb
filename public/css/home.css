@@ -30,6 +30,7 @@ body {
 }
 
 .title {
+    font-family: Poppins;
     margin-left: 1rem;
     font-size: 18px;
     font-weight: bold;
@@ -70,11 +71,19 @@ body {
     background: white;
     padding: 5px 10px;
     border-radius: 10px;
-    transition: ease 0.2 all;
+    transition: ease 2 all;
 }
 
 .filter:hover {
-    background: #99ddfe;
+    background: #6c8dc7;
+    color: white;
+}
+
+.day-selector {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 10px 0;
 }
 
 .card {

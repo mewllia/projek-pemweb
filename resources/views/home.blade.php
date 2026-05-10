@@ -14,12 +14,12 @@
     
     <div class="content">
         <div class="section-title">
-            <div class="day-selector" style="display: flex; gap: 10px; overflow-x: auto; padding: 10px 0;">
+            <div class="day-selector">
                 @foreach(['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'] as $hari)
                     <a href="{{ route('ruangan.index', ['hari' => $hari]) }}" 
                        class="btn-day {{ $hariDipilih == $hari ? 'active' : '' }}"
                        style="padding: 10px 20px; border-radius: 20px; text-decoration: none; 
-                              background: {{ $hariDipilih == $hari ? '#0ea5e9' : '#fff' }}; 
+                              background: {{ $hariDipilih == $hari ? '#6c8dc7' : '#fff' }}; 
                               color: {{ $hariDipilih == $hari ? '#fff' : '#64748b' }};
                               border: 1px solid #e2e8f0; white-space: nowrap;">
                         {{ $hari }}
@@ -59,28 +59,22 @@
                 <p class="capacity">
                     <i class="fa-solid fa-users"></i> Kapasitas: {{ $ruangan->kapasitas }} orang
                 </p>
-            
-                {{-- BAGIAN BARU: Menampilkan Jam yang Sudah Terisi --}}
-                <div style="margin: 10px 0; padding: 8px; background: #f8fafc; border-radius: 8px; font-size: 13px;">
-                    <strong style="color: #64748b; display: block; margin-bottom: 4px;">Jadwal {{ $hariDipilih }}:</strong>
-                    @forelse($ruangan->peminjamans as $p)
-                        <div style="color: #ef4444; margin-bottom: 2px;">
-                            <i class="fa-solid fa-clock"></i> Jam {{ $p->jam_mulai }} - {{ $p->jam_selesai }} (Terisi)
-                        </div>
-                    @empty
-                        <div style="color: #10b981;">
-                            <i class="fa-solid fa-calendar-check"></i> Belum ada peminjaman
-                        </div>
-                    @endforelse
+
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <a href="{{ route('ruangan.show', ['id' => $ruangan->id, 'hari' => $hariDipilih]) }}" 
+                    class="btn" style="flex: 1; background: #f1f5f9; color: #475569; text-decoration: none; 
+                                        text-align: center; padding: 10px; border-radius: 8px; font-weight: 600;
+                                        border: 1px solid #e2e8f0;">Lihat Jadwal</a>
+
+                    @if($ruangan->is_available)
+                        <a href="{{ route('pinjam.create', ['id' => $ruangan->id, 'hari' => $hariDipilih]) }}" 
+                        class="btn primary" style="flex: 1; text-align: center;">
+                            Pinjam
+                        </a>
+                    @else
+                        <button class="btn disabled" style="flex: 1;" disabled>Penuh</button>
+                    @endif
                 </div>
-            
-                @if($ruangan->is_available)
-                    <a href="{{ route('pinjam.create', ['id' => $ruangan->id, 'hari' => $hariDipilih]) }}" class="btn primary">
-                        Pinjam Ruangan 
-                    </a>
-                @else
-                    <button class="btn disabled" disabled>Sudah Penuh</button>
-                @endif
             </div>
 
             @empty

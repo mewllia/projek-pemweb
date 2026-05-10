@@ -19,8 +19,8 @@
                 </div>
 
                 <div style="margin-bottom: 15px;">
-                    <label style="display:block; font-size: 12px; color: #666; margin-bottom: 5px;">Prodi/Offering</label>
-                    <input type="text" name="kegiatan" placeholder="Teknik Informatika/C" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box;">
+                    <label style="display:block; font-size: 12px; color: #666; margin-bottom: 5px;">Prodi/Organisasi</label>
+                    <input type="text" name="peminjam" placeholder="TI-C" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box;">
                 </div>
 
                 <div style="display: flex; gap: 10px; margin-bottom: 15px;">
