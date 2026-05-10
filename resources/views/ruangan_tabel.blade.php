@@ -42,7 +42,7 @@
                     <td style="padding: 15px; color: #475569; font-weight: 500;">
                         @if($data)
                             <i class="fa-solid fa-user" style="font-size: 12px; color: #94a3b8; margin-right: 5px;"></i>
-                            {{ $data->peminjam }}
+                            {{ $data->jurusan }}
                         @else
                             <span style="color: #cbd5e1;">Belum ada peminjam</span>
                         @endif

@@ -22,7 +22,7 @@ class PeminjamanController extends Controller
             'hari'       => 'required',
             'jam_mulai'  => 'required|integer|min:1|max:12',
             'durasi'     => 'required|integer|min:1|max:12',
-            'peminjam'   => 'required|string|max:255',
+            'jurusan'    => 'required',
             'keterangan' => 'required|string|max:255',
         ]);
 
@@ -48,10 +48,21 @@ class PeminjamanController extends Controller
                 'ruangan_id' => $request->ruangan_id,
                 'hari'       => $request->hari,
                 'jam'        => $j,
-                'peminjam'   => $request->peminjam,
+                'jurusan'    => $request->jurusan,
                 'keterangan' => $request->keterangan,
             ]);
         }
         return redirect()->route('ruangan.index', ['hari' => $request->hari])->with('success', 'Berhasil meminjam ruangan!');
+    }
+    public function destroy(Request $request)
+    {
+        $prodiUser = session('jurusan');
+        $deleted = \App\Models\Peminjaman::where('jurusan', $prodiUser)
+        ->where('hari', $request->hari)->where('keterangan', $request->keterangan)->delete();
+
+        if ($deleted) {
+            return back()->with('success', 'Jadwal berhasil dibatalkan.');
+        }
+        return back()->with('error', 'Gagal menghapus jadwal.');
     }
 }
