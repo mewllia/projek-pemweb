@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\Ruangan;
 
@@ -10,18 +11,29 @@ class RuanganController extends Controller
     public function index(Request $request)
     {
         $hariDipilih = $request->get('hari', 'Senin');
-        $semua_ruangan = Ruangan::with(['peminjamans' => function($q) use ($hariDipilih) {
+        $search = $request->get('search');
+
+        $query = Ruangan::with(['peminjamans' => function($q) use ($hariDipilih) {
             $q->where('hari', $hariDipilih);
-        }])->get()->map(function($ruangan) use ($hariDipilih) {
+        }]);
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")->orWhere('gedung', 'like', "%{$search}%");
+            });
+        }
+        $semua_ruangan = $query->get()->map(function($ruangan) use ($hariDipilih) {
             $totalJamTerpakai = $ruangan->peminjamans->count();
             $ruangan->is_available = $totalJamTerpakai < 12;
             return $ruangan;
         });
-
-        return view('home', compact('semua_ruangan', 'hariDipilih'));
+        return view('ruangan', compact('semua_ruangan', 'hariDipilih'));
     }
     public function create()
     {
+        if (Session::get('role') !== 'admin') {
+            return redirect('/ruangan')->with('error', 'Hanya Admin yang boleh menambah ruangan!');
+        }
+
         return view('tambah_ruangan');
     }
     public function store(Request $request)

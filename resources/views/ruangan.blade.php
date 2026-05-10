@@ -3,13 +3,12 @@
 @section('content')
     <div class="header">
         <div class="header-left">
-            <i class="fa-solid fa-graduation-cap" style="font-size: 30px;"></i>
+            {{-- <i class="fa-solid fa-graduation-cap" style="font-size: 30px;"></i> --}}
             <div class="title">
-                APLIKASI PINJAM KELAS<br>
-                <span style="font-size: 16px;">UNIVERSITAS NEGERI MALANG</span>
+                Aplikasi Pinjam Kelas<br>
+                {{-- <span style="font-size: 16px;">UNIVERSITAS NEGERI MALANG</span> --}}
+            </div>
         </div>
-        </div>
-        <i class="fa-solid fa-magnifying-glass"></i>
     </div>
     
     <div class="content">
@@ -21,19 +20,29 @@
                        style="padding: 10px 20px; border-radius: 20px; text-decoration: none; 
                               background: {{ $hariDipilih == $hari ? '#6c8dc7' : '#fff' }}; 
                               color: {{ $hariDipilih == $hari ? '#fff' : '#64748b' }};
-                              border: 1px solid #e2e8f0; white-space: nowrap;">
+                              border: 2px solid #e2e8f0; white-space: nowrap;">
                         {{ $hari }}
                     </a>
                 @endforeach
             </div>
+
             <div class="section-right">
-                <a href="{{ route('ruangan.create') }}" class="nav-link">
-                    <div class="filter nav-item {{ Request::is('pinjam*') ? 'active' : '' }}">
-                        <i class="fa-solid fa-plus"></i>
-                        <label>Tambah Kelas</label>
-                    </div>
-                </a>
-            {{-- <button class="filter"><i class="fa-solid fa-filter"></i>Filter</button> --}}
+                <form action="{{ route('ruangan.index') }}" method="GET" style="position: relative; display: flex; align-items: center;">
+                    <input type="hidden" name="hari" value="{{ $hariDipilih }}">
+                    <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 15px; color: #94a3b8;"></i>
+                    <input type="text" name="search" id="search" value="{{ request('search') }}" 
+                    placeholder="Search" >
+                    <button type="submit" style="display: none;">Cari</button>
+                </form>
+
+                @if(Session::get('role') == 'admin')
+                    <a href="{{ route('ruangan.create') }}" class="nav-link">
+                        <div class="filter nav-item {{ Request::is('pinjam*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-plus"></i>
+                            <label>Tambah Kelas</label>
+                        </div>
+                    </a>
+                @endif
             </div>
         </div>
         
@@ -45,7 +54,6 @@
                         <span style="font-weight: bold;">{{ $ruangan->gedung }}</span>
                     </div>
             
-                    {{-- Status sekarang selalu tersedia selama total jam belum penuh 12 jam --}}
                     @if($ruangan->is_available)
                         <span class="badge available">Tersedia</span>
                     @else
@@ -82,9 +90,12 @@
                 <i class="fa-solid fa-box-open" style="font-size: 50px; color: #cbd5e1; margin-bottom: 15px;"></i>
                 <h3 style="color: #64748b;">Tidak ada kelas</h3>
                 <p style="color: #94a3b8;">Belum ada ruangan yang ditambahkan ke database.</p>
-                <a href="{{ route('ruangan.create') }}" style="color: #0ea5e9; text-decoration: none; font-weight: 600;">
-                    + Tambah Ruangan Sekarang
-                </a>
+
+                @if(Session::get('role') == 'admin')
+                    <a href="{{ route('ruangan.create') }}" style="color: #0ea5e9; text-decoration: none; font-weight: 600;">
+                        + Tambah Ruangan Sekarang
+                    </a>
+                @endif
             </div>
         @endforelse
     </div>
