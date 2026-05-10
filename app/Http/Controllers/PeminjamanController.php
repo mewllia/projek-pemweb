@@ -58,9 +58,7 @@ class PeminjamanController extends Controller
     {
         $prodiUser = session('jurusan');
         $deleted = \App\Models\Peminjaman::where('jurusan', $prodiUser)
-            ->where('hari', $request->hari)
-            ->where('keterangan', $request->keterangan)
-            ->delete();
+        ->where('hari', $request->hari)->where('keterangan', $request->keterangan)->delete();
 
         if ($deleted) {
             return back()->with('success', 'Jadwal berhasil dibatalkan.');
