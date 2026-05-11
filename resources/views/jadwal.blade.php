@@ -50,14 +50,14 @@
                                     </div>
                                 </div>
                                 
-                                <form action="{{ route('pinjam.destroy') }}" method="POST" onsubmit="return confirm('Yakin ingin membatalkan peminjaman ini?')" style="margin: 0;">
+                                <form action="{{ route('pinjam.destroy') }}" method="POST" class="form-delete" style="margin: 0;">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="ruangan_id" value="{{ $item['ruangan_id'] }}">
                                     <input type="hidden" name="hari" value="{{ $item['hari'] }}">
                                     <input type="hidden" name="keterangan" value="{{ $item['kegiatan'] }}">
                                     
-                                    <button type="submit" class="btn-delete">
+                                    <button type="button" class="btn-delete btn-hapus-jadwal">
                                         <i class="fa-solid fa-trash-can"></i>
                                         <span>Hapus</span>
                                     </button>
@@ -79,4 +79,29 @@
         </div>
     @endforelse
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.querySelectorAll('.btn-hapus-jadwal').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const form = this.closest('.form-delete');
+
+            Swal.fire({
+                title: 'Batalkan Peminjaman?',
+                text: "Anda akan menghapus jadwal ini",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#64748b',
+                confirmButtonText: 'Hapus Jadwal',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            })
+        });
+    });
+</script>
 @endsection

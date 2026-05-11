@@ -8,11 +8,21 @@ use App\Http\Controllers\PeminjamanController;
 Route::get('/', function () {
     return redirect('/ruangan');
 });
+Route::get('/welcome', function () {
+    return view('/welcome');
+});
+
+Route::middleware(['App\Http\Middleware\CekLogin'])->group(function () {
+    Route::get('/akun', function () {
+        return view('auth.akun');
+    })->name('akun');
+});
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'showRegister']);
 Route::post('/register', [AuthController::class, 'register']);
+
 
 Route::get('/ruangan', [RuanganController::class, 'index'])->name('ruangan.index');
 Route::get('/ruangan/tabel/{id}', [RuanganController::class, 'show'])->name('ruangan.show');

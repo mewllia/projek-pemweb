@@ -9,7 +9,7 @@
                 {{-- <span style="font-size: 16px;">UNIVERSITAS NEGERI MALANG</span> --}}
             </div>
         </div>
-    </div>
+    </div> 
     
     <div class="content">
         <div class="section-title">
