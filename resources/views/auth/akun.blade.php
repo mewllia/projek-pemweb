@@ -1,20 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="header" style="background: #0ea5e9; padding: 40px 25px; border-radius: 0 0 30px 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-    <div style="display: flex; align-items: center; gap: 15px;">
-        
-        <div style="background: rgba(255,255,255,0.2); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-            <i class="fa-solid fa-circle-user" style="font-size: 28px; color: white;"></i>
-        </div>
+    <div class="header">
+    <div class="header-left">
 
-        <div>
-            <h1 style="margin: 0; color: white; font-size: 18px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.2;">
-                PROFIL SAYA
-            </h1>
-            <p style="margin: 0; color: rgba(255,255,255,0.8); font-size: 12px; font-weight: 400;">
-                Informasi Akun Terdaftar
-            </p>
+        <div class="title">
+            PROFIL SAYA <br>
+            <span>Informasi Akun Terdaftar</span>
         </div>
 
     </div>
