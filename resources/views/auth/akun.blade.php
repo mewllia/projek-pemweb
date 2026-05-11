@@ -78,13 +78,13 @@
         document.getElementById('logout-btn').addEventListener('click', function(e) {
             e.preventDefault();
             Swal.fire({
-                title: 'Yakin mau keluar?',
+                title: 'Apakah anda yakin?',
                 text: "Kamu harus login kembali untuk meminjam kelas.",
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#e11d48',
                 cancelButtonColor: '#64748b',
-                confirmButtonText: 'Ya, Logout',
+                confirmButtonText: 'Logout',
                 cancelButtonText: 'Batal',
                 reverseButtons: true,
                 borderRadius: '15px'
