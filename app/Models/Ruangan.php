@@ -11,7 +11,6 @@ class Ruangan extends Model
     ];
     public function peminjamans()
     {
-        // "Satu Ruangan memiliki BANYAK Peminjaman"
         return $this->hasMany(Peminjaman::class, 'ruangan_id');
     }
 }

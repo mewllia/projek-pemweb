@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('ruangan_id')->constrained()->onDelete('cascade');
             $table->string('hari');
-            $table->integer('jam'); // Menyimpan angka jam (misal: 1, 2, atau 3)
-            $table->string('kegiatan');
+            $table->integer('jam');
+            $table->string('jurusan');
+            $table->string('keterangan');
             $table->timestamps();
         });
     }

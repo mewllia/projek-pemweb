@@ -2,39 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use App\Models\Peminjaman;
 use App\Models\Ruangan;
-use Illuminate\Support\Facades\DB;
 
 class RuanganController extends Controller
 {
     public function index(Request $request)
     {
         $hariDipilih = $request->get('hari', 'Senin');
-        
-        // Kita gunakan eager loading agar performa cepat saat looping di Blade
-        $semua_ruangan = Ruangan::with(['peminjamans' => function($q) use ($hariDipilih) {
-            $q->where('hari', $hariDipilih);
-        }])->get()->map(function($ruangan) use ($hariDipilih) {
-            
-            // Karena satu baris = satu jam, kita cukup count() saja
-            $totalJamTerpakai = $ruangan->peminjamans->count();
+        $search = $request->get('search');
 
-            // Ruangan penuh jika sudah ada 12 data jam (asumsi jam 1 sampai 12)
+        $query = Ruangan::with(['peminjamans' => function($q) use ($hariDipilih) {
+            $q->where('hari', $hariDipilih);
+        }]);
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")->orWhere('gedung', 'like', "%{$search}%");
+            });
+        }
+        $semua_ruangan = $query->get()->map(function($ruangan) use ($hariDipilih) {
+            $totalJamTerpakai = $ruangan->peminjamans->count();
             $ruangan->is_available = $totalJamTerpakai < 12;
-            
             return $ruangan;
         });
-
-        return view('home', compact('semua_ruangan', 'hariDipilih'));
+        return view('ruangan', compact('semua_ruangan', 'hariDipilih'));
     }
     public function create()
     {
+        if (Session::get('role') !== 'admin') {
+            return redirect('/ruangan')->with('error', 'Hanya Admin yang boleh menambah ruangan');
+        }
         return view('tambah_ruangan');
     }
     public function store(Request $request)
     {
-        // Validasi sederhana agar database tidak error
         $request->validate([
             'nama' => 'required',
             'gedung' => 'required',
@@ -50,9 +53,51 @@ class RuanganController extends Controller
 
         return redirect()->route('ruangan.index')->with('success', 'Ruangan berhasil ditambahkan!');
     }
-    public function pinjamForm($id)
+    public function show($id, Request $request)
     {
         $ruangan = Ruangan::findOrFail($id);
-        return view('form_pinjam', compact('ruangan'));
+        $hariDipilih = $request->get('hari', 'Senin');
+        $peminjamans = Peminjaman::where('ruangan_id', $id)
+        ->where('hari', $hariDipilih)->get();
+        $jadwalTerisi = $peminjamans->keyBy('jam');
+        
+        $totalJamTerpakai = $peminjamans->count();
+        $ruangan->is_available = $totalJamTerpakai < 12;
+
+        return view('ruangan_tabel', compact('ruangan', 'hariDipilih', 'jadwalTerisi'));
+    }
+    public function jadwalSaya()
+    {
+        $prodiUser = session()->get('jurusan');
+        $urutanHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
+
+        $peminjamans = \App\Models\Peminjaman::with('ruangan')
+        ->where('jurusan', $prodiUser)->get();
+        $grouped = $peminjamans->groupBy(['hari', 'ruangan_id', 'keterangan']);
+
+        $jadwalGrouped = collect($urutanHari)->filter(function ($hari) use ($grouped) {
+            return $grouped->has($hari);
+        })->mapWithKeys(function ($hari) use ($grouped) {
+            return [$hari => $grouped[$hari]];
+        })->map(function ($ruanganGroup) {
+            return $ruanganGroup->map(function ($kegiatanGroup) {
+                return $kegiatanGroup->map(function ($items) {
+                    $first = $items->first();
+                    $last = $items->last();
+                    return [
+                        'ruangan_id' => $first->ruangan_id,
+                        'nama_ruangan' => $first->ruangan->nama,
+                        'gedung' => $first->ruangan->gedung,
+                        'kegiatan' => $first->keterangan,
+                        'hari' => $first->hari,
+                        'jam_mulai' => $first->jam,
+                        'jam_selesai' => $last->jam,
+                        'total_jam' => $items->count()
+                    ];
+                });
+            });
+        });
+
+        return view('jadwal', compact('jadwalGrouped', 'prodiUser'));
     }
 }

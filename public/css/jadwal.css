@@ -1,0 +1,119 @@
+.jadwal-container {
+    padding: 20px;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.hari-row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 40px;
+    align-items: stretch;
+    gap: 0px;
+}
+
+.hari-sidebar {
+    width: 120px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.line-blue {
+    width: 4px;
+    background: #0ea5e9;
+    border-radius: 2px;
+    height: 100%;
+}
+
+.hari-text h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+    color: #1e293b;
+    letter-spacing: 0.5px;
+}
+
+.card-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex-grow: 1;
+}
+
+.card-item {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    border: 1px solid #f1f5f9;
+    flex: 1 1 31%;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.spacer {
+    flex: 1 1 31%;
+    min-width: 280px;
+    height: 0;
+    visibility: hidden;
+}
+
+.btn-delete {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: 1px solid #fee2e2;
+    color: #ef4444;
+    padding: 5px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-delete:hover {
+    background: #fef2f2;
+    border-color: #ef4444;
+}
+
+.btn-delete i {
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .hari-row {
+        flex-direction: column; 
+        gap: 15px;
+    }
+
+    .hari-sidebar {
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+
+    .hari-text {
+        order: 1;
+    }
+
+    .line-blue {
+        order: 2;
+        width: 60px;
+        height: 4px;
+        background: #0ea5e9;
+        border-radius: 2px;
+    }
+
+    .card-item {
+        flex: 1 1 100%;
+    }
+}

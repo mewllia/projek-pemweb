@@ -9,6 +9,11 @@ class Peminjaman extends Model
     protected $table = 'peminjamans'; 
 
     protected $fillable = [
-        'ruangan_id', 'hari', 'jam', 'kegiatan'
+        'ruangan_id', 'hari', 'jam', 'jurusan', 'keterangan'
     ];
+
+    public function ruangan()
+    {
+        return $this->belongsTo(Ruangan::class, 'ruangan_id');
+    }
 }
