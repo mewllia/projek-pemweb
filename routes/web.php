@@ -8,6 +8,9 @@ use App\Http\Controllers\PeminjamanController;
 Route::get('/', function () {
     return redirect('/ruangan');
 });
+Route::get('/welcome', function () {
+    return view('/welcome');
+});
 
 Route::middleware(['App\Http\Middleware\CekLogin'])->group(function () {
     Route::get('/akun', function () {

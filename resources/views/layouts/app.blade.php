@@ -16,7 +16,7 @@
         <div class="bottom-nav">
             <a href="{{ url('/ruangan') }}" class="nav-link">
                 <div class="nav-item {{ Request::is('ruangan*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-building"></i><br>Ruangan
+                    <i class="fa-solid fa-building"></i><br>Daftar Ruangan
                 </div>
             </a>
             <a href="{{ url('/jadwal') }}" class="nav-link">

@@ -2,37 +2,36 @@
 
 @section('content')
     <div class="header">
-    <div class="header-left">
-
-        <div class="title">
-            PROFIL SAYA <br>
-            <span>Informasi Akun Terdaftar</span>
+        <div class="header-left">
+            <div class="title">
+                Profil Saya
+            </div>
         </div>
-
     </div>
-</div>
     
-    <div class="content" style="padding: 20px; margin-top: -20px; margin-bottom: 80px;">
-        <div class="card" style="text-align: center; padding: 25px; border-radius: 20px; border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.05); background: white;">
-            <div style="background: #f0f9ff; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; border: 2px solid #0ea5e9;">
+    <div class="content" style="display: flex; padding: 20px; margin-top: 5px; margin-bottom: 80px;">
+        <div class="card" style=" display: flex; flex-direction: column; gap: 0px; align-items: center; justify-content: center; text-align: center; padding: 25px; border-radius: 20px; border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.05); background: white;">
+            <div style="background: #f0f9ff; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0; border: 2px solid #0ea5e9;">
                 <i class="fa-solid fa-user-graduate" style="font-size: 40px; color: #0ea5e9;"></i>
             </div>
-            <h2 style="margin: 0; color: #1e293b; font-size: 20px;">{{ Session::get('nama') }}</h2>
-            <p style="color: #64748b; font-size: 14px; margin-top: 5px;">Aplikasi Pinjam Kelas UM</p>
+            <div>
+                <span style="font-size: 32px; font-weight: bold; margin: 0; color: #1e293b;">{{ Session::get('nama') }}</span><br>
+                <span style="color: #64748b; font-size: 14px; margin-top: 5px;">Universitas Negeri Malang</span>
+            </div>
         </div>
 
-        <div class="card" style="padding: 10px 0; border-radius: 20px; border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.05); background: white; margin-top: 20px;">
-            
+        <div class="card" style="padding: 10px 0; border-radius: 20px; border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.05); background: white;">
+        
             <div style="display: flex; align-items: center; padding: 15px 20px; border-bottom: 1px solid #f1f5f9;">
                 <div style="width: 40px; height: 40px; background: #eff6ff; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
-                    <i class="fa-solid fa-shield-halved" style="color: #3b82f6;"></i>
+                    <i class="fa-solid fa-user" style="color: #3b82f6;"></i>
                 </div>
                 <div style="flex: 1;">
-                    <small style="color: #94a3b8; display: block; font-size: 11px;">STATUS PENGGUNA</small>
+                    <small style="color: #94a3b8; display: block; font-size: 11px;">Status Pengguna</small>
                     <span style="font-weight: 600; color: #334155; text-transform: uppercase;">{{ Session::get('role') }}</span>
                 </div>
                 @if(Session::get('role') == 'admin')
-                    <span class="badge full" style="font-size: 10px;">PRO</span>
+                    <span class="badge available" style="font-size: 10px;">PRO</span>
                 @else
                     <i class="fa-solid fa-circle-check" style="color: #10b981;"></i>
                 @endif
@@ -43,7 +42,7 @@
                     <i class="fa-solid fa-id-card" style="color: #ef4444;"></i>
                 </div>
                 <div style="flex: 1;">
-                    <small style="color: #94a3b8; display: block; font-size: 11px;">NOMOR INDUK MAHASISWA</small>
+                    <small style="color: #94a3b8; display: block; font-size: 11px;">NIM (Nomor Induk Mahasiswa)</small>
                     <span style="font-weight: 600; color: #334155;">{{ Session::get('nim') }}</span>
                 </div>
             </div>
@@ -53,7 +52,7 @@
                     <i class="fa-solid fa-graduation-cap" style="color: #22c55e;"></i>
                 </div>
                 <div style="flex: 1;">
-                    <small style="color: #94a3b8; display: block; font-size: 11px; text-transform: uppercase;">Jurusan / Kelas</small>
+                    <small style="color: #94a3b8; display: block; font-size: 11px;">Prodi/Offering</small>
                     <span style="font-weight: 600; color: #334155;">{{ Session::get('jurusan') ?? 'Jurusan Belum Diatur' }}</span>
                 </div>
             </div>
