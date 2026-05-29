@@ -65,7 +65,7 @@
             <a href="{{ route('pinjam.create', ['id' => $ruangan->id, 'hari' => $hariDipilih]) }}" 
                class="btn primary" 
                style="display: inline-block; padding: 15px 40px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 16px; box-shadow: 0 10px 15px -3px rgba(14, 165, 233, 0.3);">
-                <i class="fa-solid fa- calendar-plus"></i> Pinjam Ruangan Ini
+                <i class="fa-solid fa-calendar-plus"></i> Pinjam Ruangan Ini
             </a>
         @else
             <button class="btn disabled" 
